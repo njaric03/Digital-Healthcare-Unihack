@@ -68,3 +68,49 @@ def generate_model_views():
         views.append(view_class)
 
     return views
+
+class PatientMedicationsView(APIView):
+    def get(self, request, patient_id, *args, **kwargs):
+        try:
+            patient_receipts = Receipt.objects.filter(Patient_id=patient_id)
+            medications = []
+
+            for receipt in patient_receipts:
+                receipt_medications = ReceiptMedication.objects.filter(Receipt=receipt)
+                medications.extend(receipt_medication.DocMedPermission.Medication for receipt_medication in receipt_medications)
+
+            medication_data = [model_to_dict(medication) for medication in medications]
+            return Response(medication_data)
+
+        except Exception as e:
+            return HttpResponseBadRequest(f"Error: {str(e)}")
+        
+
+class DoctorMedicationsView(APIView):
+    def get(self, request, doctor_id, *args, **kwargs):
+        try:
+            # Assuming doctor_id is the ID of the doctor
+            doctor_permissions = DocMedPermission.objects.filter(Doctor_id=doctor_id)
+            medications = [permission.Medication for permission in doctor_permissions]
+
+            medication_data = [model_to_dict(medication) for medication in medications]
+            return Response(medication_data)
+
+        except Exception as e:
+            return HttpResponseBadRequest(f"Error: {str(e)}")
+        
+
+class ReceiptMedicationByReceiptView(APIView):
+    def get(self, request, receipt_id):
+        try:
+            doc_permission = ReceiptMedication.objects.filter(Receipt_id=receipt_id)
+            doc_permission_ids = [getattr(instance, "DocMedPermission_id") for instance in doc_permission]
+            print(doc_permission_ids)
+            receipt_medications = DocMedPermission.objects.filter(id__in = doc_permission_ids)
+            medication_ids = [getattr(instance, "Medication_id") for instance in receipt_medications]
+            medication = Medication.objects.filter(id__in = medication_ids)
+            data = [model_to_dict(item) for item in medication]
+
+            return Response(data)
+        except ReceiptMedication.DoesNotExist:
+            return Response({"error": f"No ReceiptMedication found for Receipt with id {receipt_id}"}, status=404)

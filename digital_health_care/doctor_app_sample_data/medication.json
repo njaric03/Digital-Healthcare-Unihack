@@ -1,0 +1,25 @@
+{
+    "Medication": [
+      {"MEDNAME": "Aspirin", "QUANTITY": 12},
+      {"MEDNAME": "Ibuprofen", "QUANTITY": 6},
+      {"MEDNAME": "Acetaminophen", "QUANTITY": 18},
+      {"MEDNAME": "Lisinopril", "QUANTITY": 50},
+      {"MEDNAME": "Simvastatin", "QUANTITY": 24},
+      {"MEDNAME": "Metformin", "QUANTITY": 12},
+      {"MEDNAME": "Levothyroxine", "QUANTITY": 6},
+      {"MEDNAME": "Amoxicillin", "QUANTITY": 18},
+      {"MEDNAME": "Atorvastatin", "QUANTITY": 24},
+      {"MEDNAME": "Hydrochlorothiazide", "QUANTITY": 50},
+      {"MEDNAME": "Omeprazole", "QUANTITY": 18},
+      {"MEDNAME": "Metoprolol", "QUANTITY": 12},
+      {"MEDNAME": "Losartan", "QUANTITY": 50},
+      {"MEDNAME": "Amlodipine", "QUANTITY": 24},
+      {"MEDNAME": "Albuterol", "QUANTITY": 50},
+      {"MEDNAME": "Tramadol", "QUANTITY": 12},
+      {"MEDNAME": "Citalopram", "QUANTITY": 6},
+      {"MEDNAME": "Gabapentin", "QUANTITY": 18},
+      {"MEDNAME": "Warfarin", "QUANTITY": 24},
+      {"MEDNAME": "Doxycycline", "QUANTITY": 50}
+    ]
+  }
+  

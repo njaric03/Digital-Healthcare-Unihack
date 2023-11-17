@@ -14,6 +14,7 @@ from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+SAMPLE_DATA_DIR = Path.joinpath(BASE_DIR, 'doctor_app_sample_data')
 
 
 # Quick-start development settings - unsuitable for production
