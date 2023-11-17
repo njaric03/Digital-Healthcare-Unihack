@@ -1,6 +1,7 @@
 {
     "ReceiptMedication": [
       {"Receipt_id": 1, "DocMedPermission_id": 1},
+      {"Receipt_id": 1, "DocMedPermission_id": 2},
       {"Receipt_id": 2, "DocMedPermission_id": 2},
       {"Receipt_id": 3, "DocMedPermission_id": 3},
       {"Receipt_id": 4, "DocMedPermission_id": 4},
