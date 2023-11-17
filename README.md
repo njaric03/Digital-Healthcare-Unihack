@@ -1,1 +1,1 @@
-# Digital-Healthcare-Unihackl
+# Digital-Healthcare-Unihack
