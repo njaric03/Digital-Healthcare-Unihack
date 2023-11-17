@@ -10,4 +10,3 @@ for view_class in model_views:
     urlpatterns.append(path(f'api/{model_name}/<int:pk>/', view_class.as_view(), name=f'{model_name}_json'))
     urlpatterns.append(path(f'api/{model_name}/', view_class.as_view(), name=f'{model_name}_all_json'))
     urlpatterns.append(path(f'api/{model_name}/post/', view_class.as_view(), name=f'{model_name}_post_json'))
-
