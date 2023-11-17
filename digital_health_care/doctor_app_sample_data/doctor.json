@@ -1,0 +1,19 @@
+{
+"Doctor": [
+    {"FNAME": "John", "LNAME": "Doe", "Specialization_id": 1},
+    {"FNAME": "Jane", "LNAME": "Smith", "Specialization_id": 2},
+    {"FNAME": "Michael", "LNAME": "Johnson", "Specialization_id": 3},
+    {"FNAME": "Emily", "LNAME": "Brown", "Specialization_id": 4},
+    {"FNAME": "Christopher", "LNAME": "Miller", "Specialization_id": 1},
+    {"FNAME": "Olivia", "LNAME": "Williams", "Specialization_id": 2},
+    {"FNAME": "Daniel", "LNAME": "Taylor", "Specialization_id": 3},
+    {"FNAME": "Sophia", "LNAME": "Anderson", "Specialization_id": 4},
+    {"FNAME": "Joseph", "LNAME": "Martinez", "Specialization_id": 1},
+    {"FNAME": "Emma", "LNAME": "Jones", "Specialization_id": 2},
+    {"FNAME": "David", "LNAME": "Davis", "Specialization_id": 3},
+    {"FNAME": "Ava", "LNAME": "Johnson", "Specialization_id": 4},
+    {"FNAME": "William", "LNAME": "Brown", "Specialization_id": 1},
+    {"FNAME": "Sophia", "LNAME": "Miller", "Specialization_id": 2},
+    {"FNAME": "James", "LNAME": "Taylor", "Specialization_id": 3}
+  ]
+}
