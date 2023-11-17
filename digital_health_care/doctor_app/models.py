@@ -63,8 +63,7 @@ class ReceiptMedication(models.Model):
         return f"Receipt Medication: {self.Receipt} - {self.DocMedPermission}"
 
 class Pharmacy(models.Model):
-    pass
-    # Other fields as necessary
+    PHARNAME = models.CharField(max_length = 50)
 
     def __str__(self):
         return "Pharmacy"
