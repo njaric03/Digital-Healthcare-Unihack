@@ -51,3 +51,20 @@ class JSONDetailView(APIView):
             instance_dict = model_to_dict(instance)
             return Response(instance_dict, status=status.HTTP_201_CREATED)
 
+    def serialize_instance(self, instance):
+
+        instance_dict = model_to_dict(instance)
+        return instance_dict
+
+from .models import *  # Import your models
+
+def generate_model_views():
+    models = apps.get_models()
+    views = []
+
+    for model in models:
+        class_name = f"{model.__name__}JSONView"
+        view_class = type(class_name, (JSONDetailView,), {'model': model})
+        views.append(view_class)
+
+    return views
