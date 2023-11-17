@@ -39,8 +39,7 @@ class ReceiptMedication(models.Model):
     DocMedPermission = models.ForeignKey(DocMedPermission, on_delete=models.CASCADE)
 
 class Pharmacy(models.Model):
-    pass
-    # Other fields as necessary
+    PHARNAME = models.CharField(max_length = 50)
 
 class HasMedication(models.Model):
     Medication = models.ForeignKey(Medication, on_delete=models.CASCADE)
