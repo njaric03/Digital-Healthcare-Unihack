@@ -66,7 +66,7 @@ class Pharmacy(models.Model):
     PHARNAME = models.CharField(max_length = 50)
 
     def __str__(self):
-        return "Pharmacy"
+        return self.PHARNAME
 
 class HasMedication(models.Model):
     Medication = models.ForeignKey(Medication, on_delete=models.CASCADE)

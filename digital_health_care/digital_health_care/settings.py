@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework', # new, for api
-    'doctor_app'
 ]
 
 MIDDLEWARE = [
