@@ -1,293 +1,53 @@
-from django.shortcuts import render
-from doctor_app.models import *
-from doctor_app.serializers import *
-from django.http import HttpResponse
-from django.forms.models import model_to_dict
+from django.apps import apps
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from django.http import Http404
+from django.http import HttpResponseBadRequest
+from django.forms.models import model_to_dict
+from django.db.models import ForeignKey
+
 import json
 
-# Create your views here.
-class SpecializationViewSet(APIView):
+from django.apps import apps
+
+class JSONDetailView(APIView):
+    model = None
+
+    def get(self, request, pk=None, *args, **kwargs):
+        if pk is not None:
+            instance = self.get_instance(pk)
+            data = self.serialize_instance(instance)
+        else:
+            queryset = self.get_queryset()
+            data = [self.serialize_instance(obj) for obj in queryset]
+
+        return Response(data)
+
+    def get_instance(self, pk):
+        try:
+            return self.model.objects.get(pk=pk)
+        except self.model.DoesNotExist:
+            raise Http404
+
+    def get_queryset(self):
+        return self.model.objects.all()
     
-    queryset = Specialization.objects.all()
+    def post(self, request, *args, **kwargs):
+            data = request.data
+            if not isinstance(data, dict):
+                return HttpResponseBadRequest("Invalid data format. Expected JSON object.")
 
-    def get(self, request, pk = None):
-        if pk:
-            try:
-                instance = self.queryset.get(pk = pk)
-                instance_dict = model_to_dict(instance)
-                instance_json = json.dumps(instance_dict)
-                return Response(instance_dict)
-            except Doctor.DoesNotExist:
-                    return Response({"error": "Specialization not found"}, status=status.HTTP_404_NOT_FOUND)
-        else:
-            instances = Specialization.objects.all()
-            instances_list = [model_to_dict(instance) for instance in instances]
-            return Response(instances_list)
-        
-    def post(self, request, pk = None):
-        try:
-            instance = self.queryset.get(pk = pk)
-            instance_dict = model_to_dict(instance)
-            return Response(instance_dict)
-        except Doctor.DoesNotExist:
-                return Response({"error": "Specialization not found"}, status=status.HTTP_404_NOT_FOUND)
-
-
-class DoctorViewSet(APIView):
-
-    queryset = Doctor.objects.all()
-
-    def get(self, request, pk = None):
-        if pk:
-            try:
-                instance = self.queryset.get(pk = pk)
-                instance_dict = model_to_dict(instance)
-                instance_json = json.dumps(instance_dict)
-                return Response(instance_dict)
-            except Doctor.DoesNotExist:
-                return Response({"error": "Doctor not found"}, status=status.HTTP_404_NOT_FOUND)
-        else:
-            instances = Specialization.objects.all()
-            instances_list = [model_to_dict(instance) for instance in instances]
-            return Response(instances_list)
-    
-    def post(self, request, pk = None):
-        try:
-            instance = self.queryset.get(pk = pk)
-            instance_dict = model_to_dict(instance)
-            instance_json = json.dumps(instance_dict)
-            return Response(instance_dict)
-        except Doctor.DoesNotExist:
-            return Response({"error": "Doctor not found"}, status=status.HTTP_404_NOT_FOUND)
-        
-class PatientViewSet(APIView):
-
-    queryset = Patient.objects.all()
-
-    def get(self, request, pk = None):
-        if pk:
-            try:
-                instance = self.queryset.get(pk = pk)
-                instance_dict = model_to_dict(instance)
-                instance_json = json.dumps(instance_dict)
-                return Response(instance_dict)
-            except Patient.DoesNotExist:
-                return Response({"error": "Patient not found"}, status=status.HTTP_404_NOT_FOUND)
-        else:
-            instances = Patient.objects.all()
-            instances_list = [model_to_dict(instance) for instance in instances]
-            return Response(instances_list)
-
-    def post(self, request, pk = None):
-        if pk:
-            try:
-                instance = self.queryset.get(pk = pk)
-                instance_dict = model_to_dict(instance)
-                instance_json = json.dumps(instance_dict)
-                return Response(instance_dict)
-            except Patient.DoesNotExist:
-                return Response({"error": "Patient not found"}, status=status.HTTP_404_NOT_FOUND)
-        
-class MedicationViewSet(APIView):
-
-    queryset = Medication.objects.all()
-
-    def get(self, request, pk = None):
-            if pk:
-                try:
-                    instance = self.queryset.get(pk = pk)
-                    instance_dict = model_to_dict(instance)
-                    instance_json = json.dumps(instance_dict)
-                    return Response(instance_dict)
-                except Medication.DoesNotExist:
-                    return Response({"error": "Medication not found"}, status=status.HTTP_404_NOT_FOUND)
-            else:
-                instances = Medication.objects.all()
-                instances_list = [model_to_dict(instance) for instance in instances]
-                return Response(instances_list)
-        
-    def post(self, request, pk = None):
-        try:
-            instance = self.queryset.get(pk = pk)
-            instance_dict = model_to_dict(instance)
-            instance_json = json.dumps(instance_dict)
-            return Response(instance_dict)
-        except Medication.DoesNotExist:
-            return Response({"error": "Medication not found"}, status=status.HTTP_404_NOT_FOUND)
-        
-class MedForSpecViewSet(APIView):
-    
-    queryset = MedForSpec.objects.all()
-
-    def get(self, request, pk = None):
-        if pk:
-            try:
-                instance = self.queryset.get(pk = pk)
-                instance_dict = model_to_dict(instance)
-                instance_json = json.dumps(instance_dict)
-                return Response(instance_dict)
-
-            except MedForSpec.DoesNotExist:
-                return Response({"error": "MedForSpec not found"}, status=status.HTTP_404_NOT_FOUND)
-        else:
-            instances = MedForSpec.objects.all()
-            instances_list = [model_to_dict(instance) for instance in instances]
-            return Response(instances_list)
-        
-    def post(self, request, pk = None):
-        try:
-            instance = self.queryset.get(pk = pk)
-            instance_dict = model_to_dict(instance)
-            instance_json = json.dumps(instance_dict)
-
-            return Response(instance_dict)
-        except MedForSpec.DoesNotExist:
-            return Response({"error": "MedForSpec not found"}, status=status.HTTP_404_NOT_FOUND)
-        
-class DocMedPermissionViewSet(APIView):
-
-    queryset = DocMedPermission.objects.all()
-
-    def get(self, request, pk = None):
-        if pk:
-            try:
-                instance = self.queryset.get(pk = pk)
-                instance_dict = model_to_dict(instance)
-                instance_json = json.dumps(instance_dict)
-
-                return Response(instance_dict)
-            except DocMedPermission.DoesNotExist:
-                return Response({"error": "DocMedPermission not found"}, status=status.HTTP_404_NOT_FOUND)
-        else:
-            instances = DocMedPermission.objects.all()
-            instances_list = [model_to_dict(instance) for instance in instances]
-            return Response(instances_list)
-        
-    def post(self, request, pk = None):
-        try:
-            instance = self.queryset.get(pk = pk)
-            instance_dict = model_to_dict(instance)
-
-            instance_json = json.dumps(instance_dict)
-            return Response(instance_dict)
-        except DocMedPermission.DoesNotExist:
-            return Response({"error": "DocMedPermission not found"}, status=status.HTTP_404_NOT_FOUND)
-        
-class ReceiptViewSet(APIView):
-
-    queryset = Receipt.objects.all()
-
-    def get(self, request, pk = None):
-        if pk:
-            try:
-                instance = self.queryset.get(pk = pk)
-                instance_dict = model_to_dict(instance)
-
-                instance_json = json.dumps(instance_dict)
-                return Response(instance_dict)
-            except Receipt.DoesNotExist:
-                return Response({"error": "Receipt not found"}, status=status.HTTP_404_NOT_FOUND)
-        else:
-            instances = Receipt.objects.all()
-            instances_list = [model_to_dict(instance) for instance in instances]
-            return Response(instances_list)
-                
-    def post(self, request, pk = None):
-        try:
-            instance = self.queryset.get(pk = pk)
-            instance_dict = model_to_dict(instance)
-
-            instance_json = json.dumps(instance_dict)
-            return Response(instance_dict)
-        except Receipt.DoesNotExist:
-            return Response({"error": "Receipt not found"}, status=status.HTTP_404_NOT_FOUND)
-        
-class ReceiptMedicationViewSet(APIView):
-
-    queryset = ReceiptMedication.objects.all()
-
-    def get(self, request, pk = None):
-        if pk:
-            try:
-                instance = self.queryset.get(pk = pk)
-                instance_dict = model_to_dict(instance)
-
-                instance_json = json.dumps(instance_dict)
-                return Response(instance_dict)
-            except ReceiptMedication.DoesNotExist:
-                return Response({"error": "ReceiptMedication not found"}, status=status.HTTP_404_NOT_FOUND)
-        else:
-            instances = ReceiptMedication.objects.all()
-            instances_list = [model_to_dict(instance) for instance in instances]
-            return Response(instances_list)
-        
-    def post(self, request, pk = None):
-        try:
-            instance = self.queryset.get(pk = pk)
-            instance_dict = model_to_dict(instance)
-
-            instance_json = json.dumps(instance_dict)
-            return Response(instance_dict)
-        except ReceiptMedication.DoesNotExist:
-            return Response({"error": "ReceiptMedication not found"}, status=status.HTTP_404_NOT_FOUND)
-
-class PharmacyViewSet(APIView):
-    
-        queryset = Pharmacy.objects.all()
-    
-        def get(self, request, pk = None):
-            if pk:
-                try:
-                    instance = self.queryset.get(pk = pk)
-                    instance_dict = model_to_dict(instance)
-        
-                    instance_json = json.dumps(instance_dict)
-                    return Response(instance_dict)
-                except Pharmacy.DoesNotExist:
-                    return Response({"error": "Pharmacy not found"}, status=status.HTTP_404_NOT_FOUND)
-            else:
-                instances = Pharmacy.objects.all()
-                instances_list = [model_to_dict(instance) for instance in instances]
-                return Response(instances_list)
+            for field in self.model._meta.fields:
+                if isinstance(field, ForeignKey) and field.name in data:
+                    try:
+                        related_model = field.remote_field.model
+                        data[field.name] = related_model.objects.get(pk=data[field.name])
+                    except related_model.DoesNotExist:
+                        return HttpResponseBadRequest(f"Related model with primary key {data[field.name]} does not exist.")
             
-        def post(self, request, pk = None):
-            try:
-                instance = self.queryset.get(pk = pk)
-                instance_dict = model_to_dict(instance)
-    
-                instance_json = json.dumps(instance_dict)
-                return Response(instance_dict)
-            except Pharmacy.DoesNotExist:
-                return Response({"error": "Pharmacy not found"}, status=status.HTTP_404_NOT_FOUND)
+            instance = self.model(**data)
+            instance.save()
+            instance_dict = model_to_dict(instance)
+            return Response(instance_dict, status=status.HTTP_201_CREATED)
 
-class HasMedicationViewSet(APIView):
-    
-        queryset = HasMedication.objects.all()
-    
-        def get(self, request, pk = None):
-            if pk:
-                try:
-                    instance = self.queryset.get(pk = pk)
-                    instance_dict = model_to_dict(instance)
-        
-                    instance_json = json.dumps(instance_dict)
-                    return Response(instance_dict)
-                except HasMedication.DoesNotExist:
-                    return Response({"error": "HasMedication not found"}, status=status.HTTP_404_NOT_FOUND)
-            else:
-                instances = HasMedication.objects.all()
-                instances_list = [model_to_dict(instance) for instance in instances]
-                return Response(instances_list)
-            
-        def post(self, request, pk = None):
-            try:
-                instance = self.queryset.get(pk = pk)
-                instance_dict = model_to_dict(instance)
-    
-                instance_json = json.dumps(instance_dict)
-                return Response(instance_dict)
-            except HasMedication.DoesNotExist:
-                return Response({"error": "HasMedication not found"}, status=status.HTTP_404_NOT_FOUND)
