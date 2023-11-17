@@ -1,14 +1,12 @@
-from django.http import JsonResponse
-from rest_framework import response
-from django.views import View
-from django.db.models import Model
 from django.apps import apps
-from django.urls import path
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework import status
 from django.http import Http404
-
+from django.http import HttpResponseBadRequest
 from django.forms.models import model_to_dict
+from django.db.models import ForeignKey
+
 import json
 
 from django.apps import apps
@@ -34,11 +32,28 @@ class JSONDetailView(APIView):
 
     def get_queryset(self):
         return self.model.objects.all()
+    
+    def post(self, request, *args, **kwargs):
+            data = request.data
+            if not isinstance(data, dict):
+                return HttpResponseBadRequest("Invalid data format. Expected JSON object.")
 
+            for field in self.model._meta.fields:
+                if isinstance(field, ForeignKey) and field.name in data:
+                    try:
+                        related_model = field.remote_field.model
+                        data[field.name] = related_model.objects.get(pk=data[field.name])
+                    except related_model.DoesNotExist:
+                        return HttpResponseBadRequest(f"Related model with primary key {data[field.name]} does not exist.")
+            
+            instance = self.model(**data)
+            instance.save()
+            instance_dict = model_to_dict(instance)
+            return Response(instance_dict, status=status.HTTP_201_CREATED)   
+    
     def serialize_instance(self, instance):
 
         instance_dict = model_to_dict(instance)
-        #instance_json = json.dumps(instance_dict)
         return instance_dict
 
 from .models import *  # Import your models
@@ -53,12 +68,3 @@ def generate_model_views():
         views.append(view_class)
 
     return views
-
-model_views = generate_model_views()
-
-
-urlpatterns = []
-for view_class in model_views:
-    model_name = view_class.model.__name__.lower()
-    urlpatterns.append(path(f'api/{model_name}/<int:pk>/', view_class.as_view(), name=f'{model_name}_json'))
-    urlpatterns.append(path(f'api/{model_name}/all/', view_class.as_view(), name=f'{model_name}_all_json'))
