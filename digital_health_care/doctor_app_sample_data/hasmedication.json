@@ -1,0 +1,36 @@
+{
+    "HasMedication": [
+      {"Medication_id": 1, "Pharmacy_id": 1, "QUANTITY": 50},
+      {"Medication_id": 2, "Pharmacy_id": 1, "QUANTITY": 24},
+      {"Medication_id": 3, "Pharmacy_id": 1, "QUANTITY": 18},
+      {"Medication_id": 4, "Pharmacy_id": 1, "QUANTITY": 12},
+      {"Medication_id": 5, "Pharmacy_id": 1, "QUANTITY": 6},
+      {"Medication_id": 6, "Pharmacy_id": 1, "QUANTITY": 50},
+      {"Medication_id": 7, "Pharmacy_id": 1, "QUANTITY": 24},
+      {"Medication_id": 8, "Pharmacy_id": 1, "QUANTITY": 18},
+      {"Medication_id": 9, "Pharmacy_id": 1, "QUANTITY": 12},
+      {"Medication_id": 10, "Pharmacy_id": 1, "QUANTITY": 6},
+      {"Medication_id": 11, "Pharmacy_id": 1, "QUANTITY": 50},
+      {"Medication_id": 12, "Pharmacy_id": 1, "QUANTITY": 24},
+      {"Medication_id": 13, "Pharmacy_id": 1, "QUANTITY": 18},
+      {"Medication_id": 14, "Pharmacy_id": 1, "QUANTITY": 12},
+      {"Medication_id": 15, "Pharmacy_id": 1, "QUANTITY": 6},
+      
+      {"Medication_id": 16, "Pharmacy_id": 2, "QUANTITY": 50},
+      {"Medication_id": 17, "Pharmacy_id": 2, "QUANTITY": 24},
+      {"Medication_id": 18, "Pharmacy_id": 2, "QUANTITY": 18},
+      {"Medication_id": 19, "Pharmacy_id": 2, "QUANTITY": 12},
+      {"Medication_id": 20, "Pharmacy_id": 2, "QUANTITY": 6},
+      {"Medication_id": 1, "Pharmacy_id": 2, "QUANTITY": 50},
+      {"Medication_id": 2, "Pharmacy_id": 2, "QUANTITY": 24},
+      {"Medication_id": 3, "Pharmacy_id": 2, "QUANTITY": 18},
+      {"Medication_id": 4, "Pharmacy_id": 2, "QUANTITY": 12},
+      {"Medication_id": 5, "Pharmacy_id": 2, "QUANTITY": 6},
+      {"Medication_id": 6, "Pharmacy_id": 2, "QUANTITY": 50},
+      {"Medication_id": 7, "Pharmacy_id": 2, "QUANTITY": 24},
+      {"Medication_id": 8, "Pharmacy_id": 2, "QUANTITY": 18},
+      {"Medication_id": 9, "Pharmacy_id": 2, "QUANTITY": 12},
+      {"Medication_id": 10, "Pharmacy_id": 2, "QUANTITY": 6}
+    ]
+  }
+  

@@ -1,0 +1,34 @@
+{
+    "ReceiptMedication": [
+      {"Receipt_id": 1, "DocMedPermission_id": 1},
+      {"Receipt_id": 2, "DocMedPermission_id": 2},
+      {"Receipt_id": 3, "DocMedPermission_id": 3},
+      {"Receipt_id": 4, "DocMedPermission_id": 4},
+      {"Receipt_id": 5, "DocMedPermission_id": 5},
+      {"Receipt_id": 6, "DocMedPermission_id": 6},
+      {"Receipt_id": 7, "DocMedPermission_id": 7},
+      {"Receipt_id": 8, "DocMedPermission_id": 8},
+      {"Receipt_id": 9, "DocMedPermission_id": 9},
+      {"Receipt_id": 10, "DocMedPermission_id": 10},
+      {"Receipt_id": 11, "DocMedPermission_id": 11},
+      {"Receipt_id": 12, "DocMedPermission_id": 12},
+      {"Receipt_id": 13, "DocMedPermission_id": 13},
+      {"Receipt_id": 14, "DocMedPermission_id": 14},
+      {"Receipt_id": 15, "DocMedPermission_id": 15},
+      {"Receipt_id": 16, "DocMedPermission_id": 16},
+      {"Receipt_id": 17, "DocMedPermission_id": 17},
+      {"Receipt_id": 18, "DocMedPermission_id": 18},
+      {"Receipt_id": 19, "DocMedPermission_id": 19},
+      {"Receipt_id": 20, "DocMedPermission_id": 20},
+      {"Receipt_id": 21, "DocMedPermission_id": 21},
+      {"Receipt_id": 22, "DocMedPermission_id": 22},
+      {"Receipt_id": 23, "DocMedPermission_id": 23},
+      {"Receipt_id": 24, "DocMedPermission_id": 24},
+      {"Receipt_id": 25, "DocMedPermission_id": 25},
+      {"Receipt_id": 26, "DocMedPermission_id": 26},
+      {"Receipt_id": 27, "DocMedPermission_id": 27},
+      {"Receipt_id": 28, "DocMedPermission_id": 28},
+      {"Receipt_id": 29, "DocMedPermission_id": 29}
+    ]
+  }
+  

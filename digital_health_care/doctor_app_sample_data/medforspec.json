@@ -1,0 +1,25 @@
+{
+    "MedForSpec": [
+      {"Medication_id": 1, "Specialization_id": 1},
+      {"Medication_id": 2, "Specialization_id": 2},
+      {"Medication_id": 3, "Specialization_id": 3},
+      {"Medication_id": 4, "Specialization_id": 4},
+      {"Medication_id": 5, "Specialization_id": 1},
+      {"Medication_id": 6, "Specialization_id": 2},
+      {"Medication_id": 7, "Specialization_id": 3},
+      {"Medication_id": 8, "Specialization_id": 4},
+      {"Medication_id": 9, "Specialization_id": 1},
+      {"Medication_id": 10, "Specialization_id": 2},
+      {"Medication_id": 11, "Specialization_id": 3},
+      {"Medication_id": 12, "Specialization_id": 4},
+      {"Medication_id": 13, "Specialization_id": 1},
+      {"Medication_id": 14, "Specialization_id": 2},
+      {"Medication_id": 15, "Specialization_id": 3},
+      {"Medication_id": 16, "Specialization_id": 4},
+      {"Medication_id": 17, "Specialization_id": 1},
+      {"Medication_id": 18, "Specialization_id": 2},
+      {"Medication_id": 19, "Specialization_id": 3},
+      {"Medication_id": 20, "Specialization_id": 4}
+    ]
+  }
+  
