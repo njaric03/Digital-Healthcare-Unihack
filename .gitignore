@@ -1,2 +1,52 @@
 digital_health_care/digital_health_care/__pycache__/
 doctor_app/__pycache__/
+# Django
+*.log
+*.pot
+*.pyc
+__pycache__/
+local_settings.py
+db.sqlite3
+media/
+
+# Virtual Environment
+venv/
+env/
+
+# Python
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+
+# VSCode
+.vscode/
+
+# Sublime Text
+.sublime-project
+.sublime-workspace
+
+# PyCharm
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# Database
+*.db
+
+# Heroku
+*.sqlite3
+
+# Pipenv
+Pipfile
+Pipfile.lock
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
