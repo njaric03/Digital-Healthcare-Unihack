@@ -2,6 +2,9 @@ from django.urls import path
 from .views import generate_model_views
 from .views import PatientMedicationsView, ReceiptMedicationByReceiptView, MedicationSuggestion
 
+
+app_name = 'doctor_app'
+
 model_views = generate_model_views()
 
 

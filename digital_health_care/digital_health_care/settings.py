@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework', # new, for api
+    'crispy_forms',
+    'rest_framework' # new, for api
 ]
 
 MIDDLEWARE = [
@@ -115,6 +116,7 @@ USE_I18N = True
 
 USE_L10N = True
 
+
 USE_TZ = True
 
 
@@ -127,3 +129,8 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_REDIRECT_URL = 'login'
+
+# This will redirect someone trying to access e.g profile page without having logged in, to login page
+LOGIN_URL = 'login'
