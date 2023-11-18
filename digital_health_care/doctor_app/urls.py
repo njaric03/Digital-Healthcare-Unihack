@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import generate_model_views
-from .views import PatientMedicationsView, ReceiptMedicationByReceiptView
+from .views import PatientMedicationsView, ReceiptMedicationByReceiptView, MedicationSuggestion
 
 model_views = generate_model_views()
 
@@ -14,6 +14,6 @@ for view_class in model_views:
 
 urlpatterns += [
         path('api/patient/<int:patient_id>/medications/', PatientMedicationsView.as_view(), name='patient_medications'),
-        path('api/receipt/<int:receipt_id>/medications/', ReceiptMedicationByReceiptView.as_view(), name='receipt_medications')
-
+        path('api/receipt/<int:receipt_id>/medications/', ReceiptMedicationByReceiptView.as_view(), name='receipt_medications'),
+        path('api/medicationsuggestion/<str:medicationstart>/', MedicationSuggestion.as_view(), name='medication-suggestion')
 ]

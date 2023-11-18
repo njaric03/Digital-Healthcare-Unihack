@@ -114,3 +114,10 @@ class ReceiptMedicationByReceiptView(APIView):
             return Response(data)
         except ReceiptMedication.DoesNotExist:
             return Response({"error": f"No ReceiptMedication found for Receipt with id {receipt_id}"}, status=404)
+        
+class MedicationSuggestion(APIView):
+    def get(self, request, medicationstart):
+        medicationstart_lower = medicationstart.lower()  # Convert query string to lowercase
+        medications = Medication.objects.filter(MEDNAME__istartswith=medicationstart_lower)
+        data = [model_to_dict(item)['MEDNAME'] for item in medications]
+        return Response(data)
