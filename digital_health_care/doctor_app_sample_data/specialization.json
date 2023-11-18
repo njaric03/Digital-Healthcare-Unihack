@@ -1,0 +1,8 @@
+{
+    "Specialization": [
+      {"SPECNAME": "Cardiology", "SPECSDESC": "Specializing in heart-related issues"},
+      {"SPECNAME": "Dermatology", "SPECSDESC": "Specializing in skin-related issues"},
+      {"SPECNAME": "Orthopedics", "SPECSDESC": "Specializing in bone and joint issues"},
+      {"SPECNAME": "Pediatrics", "SPECSDESC": "Specializing in child healthcare"}
+    ]
+}
