@@ -23,5 +23,5 @@ from doctor_app.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('doctor_app.urls')),
-    path('', include('users.urls'))
+    path('', include('users.urls')),
 ]

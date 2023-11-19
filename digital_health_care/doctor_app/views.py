@@ -124,6 +124,115 @@ class MedicationSuggestion(APIView):
         return Response(data)
     
 
+from django.middleware.csrf import get_token
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework.viewsets import ViewSet
+
+from django.views import View
+from django.http import JsonResponse
+from django.middleware.csrf import get_token
+
+class CsrfToken(View):
+    def get(self, request, *args, **kwargs):
+        csrf_token = get_token(request)
+        return JsonResponse({'csrfToken': csrf_token})
+    
+from django.contrib.auth import authenticate
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
+from django.http import JsonResponse
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework_simplejwt.tokens import RefreshToken
+
+@method_decorator(csrf_exempt, name='dispatch')
+class LoginView(APIView):
+    def post(self, request, *args, **kwargs):
+        username = request.data.get('username')
+        password = request.data.get('password')
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            # User is authenticated, create and return a token
+            refresh = RefreshToken.for_user(user)
+            return Response({
+                'refresh': str(refresh),
+                'access': str(refresh.access_token),
+                'patientID' : user.pk,
+            })
+        else:
+            # Authentication failed
+            return Response({'error': 'Invalid login credentials'}, status=401)
+
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework_simplejwt.exceptions import TokenError
+
+@method_decorator(csrf_exempt, name='dispatch')
+class TokenRenewalView(APIView):
+    def post(self, request, *args, **kwargs):
+        refresh_token = request.data.get('refresh')
+        if not refresh_token:
+            return Response({'error': 'Refresh token is required'}, status=400)
+
+        try:
+            # Validate and create a new token
+            refresh = RefreshToken(token=refresh_token)
+            new_access_token = str(refresh.access_token)
+
+            return Response({
+                'access': new_access_token,
+                'refresh': str(refresh)  # Optional: return new refresh token
+            })
+
+        except TokenError as e:
+            # Handle invalid token cases
+            return Response({'error': str(e)}, status=401)
+        
+from django.contrib.auth.models import User
+from django.contrib.auth.hashers import make_password
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+
+
+# Import your specific User model if you are not using Django's default User model
+
+@method_decorator(csrf_exempt, name='dispatch')
+class RegisterView(APIView):
+
+    def post(self, request, *args, **kwargs):
+        user_id = request.data.get('user_id')
+        pin = request.data.get('pin')
+
+        # Check if user_id and pin are provided
+        if not user_id or not pin:
+            return Response({'error': 'User ID and PIN are required'}, status=400)
+
+        # Check if a user with the same user ID already exists
+        if User.objects.filter(username=user_id).exists():
+            return Response({'error': 'User ID already exists'}, status=400)
+
+        # Hash the PIN
+        hashed_pin = make_password(pin)
+
+        # Create a new user instance and save it to the database
+        try:
+            user = User(username=user_id, password=hashed_pin)
+            user.save()
+
+            # You may want to include additional user setup here
+
+            return Response({'message': 'User registered successfully'}, status=status.HTTP_201_CREATED)
+        
+        except Exception as e:
+            return Response({'error': str(e)}, status=500)
+
+    
+
 def update_used(request, receipt_id):
     # Retrieve the object to be updated
     receipt = get_object_or_404(Receipt, id=receipt_id)

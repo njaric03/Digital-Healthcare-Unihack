@@ -26,30 +26,11 @@ SECRET_KEY = 'django-insecure-c@z_goahetmoo7wvdc2yefov()cgjgs6!9pc+ud7p9$y@@(fg-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-CORS_ORIGIN_ALLOW_ALL = True
+ALLOWED_HOSTS = ["10.0.2.2",
+                 "127.0.0.1",
+                 "192.168.26.151"]
 
-CORS_ALLOW_CREDENTIALS = True
-ALLOWED_HOSTS=['*']
 
-CORS_ALLOW_METHODS = [
-    "DELETE",
-    "GET",
-    "OPTIONS",
-    "PATCH",
-    "POST",
-    "PUT",
-]
-CORS_ALLOW_HEADERS = [
-    "accept",
-    "accept-encoding",
-    "authorization",
-    "content-type",
-    "dnt",
-    "origin",
-    "user-agent",
-    "x-csrftoken",
-    "x-requested-with",
-]
 # Application definition
 
 INSTALLED_APPS = [
@@ -63,13 +44,16 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     'crispy_forms',
+    'crispy_bootstrap4',
     'rest_framework', # new, for api
 ]
+
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',  # Move this line up
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -78,7 +62,10 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",  # Zameni ovo sa portom na kojem runujes android emulator 
+    "https://127.0.0.1:8000",
+    "https://10.0.2.2:8000",
+    "https://localhost:8000",
+      # Zameni ovo sa portom na kojem runujes android emulator 
 ]
 
 ROOT_URLCONF = 'digital_health_care.urls'
@@ -161,3 +148,5 @@ LOGIN_REDIRECT_URL = 'login'
 
 # This will redirect someone trying to access e.g profile page without having logged in, to login page
 LOGIN_URL = 'login'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
