@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import '../css/Doctor.css';
 import axios from 'axios';
 
-export default function Doctor() {
+export default function Doctor() { //what doctor sees in web app
   const [filteredSug, setFilteredSug] = useState([]);
   const [receiptID, setReceiptID] = useState(null);
   const location = useLocation();
@@ -16,14 +16,14 @@ export default function Doctor() {
   const [patientID, setPatientID] = useState('');
   const curDate = new Date();
 
-  const handleInputChange = async (event) => {
+  const handleInputChange = async (event) => { //function that filters possible medication that includes the string
     const cur = event.target.value;
     setText(cur);
     setGood(false);
     if(cur) {
       const url = 'http://127.0.0.1:8000/api/medicationsuggestion/' + cur;
       //console.log(url)
-      try {
+      try { //setting the filtered suggestion
         const response = await axios.get(url);
         console.log(response)
         console.log(response.data)
@@ -45,7 +45,7 @@ export default function Doctor() {
     setGood(true);
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event) => { //function sending new receipt and new receipt-medication to database
     event.preventDefault();
     const intValue = parseInt(time);
     console.log(intValue);
