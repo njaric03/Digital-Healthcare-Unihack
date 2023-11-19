@@ -15,7 +15,7 @@ body {
     background: #fff;
     max-height:150px;
     overflow-y: auto;
-    width:calc(100% - 1130px);
+    width:20%;
     z-index:1
 }
 

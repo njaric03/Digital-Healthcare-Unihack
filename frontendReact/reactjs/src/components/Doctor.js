@@ -24,7 +24,6 @@ export default function Doctor() {
         console.log(response)
         console.log(response.data)
         setFilteredSug(response.data);
-        console.log(filteredSug)
       }
       catch(error) {
         console.error("Didn't go!");
@@ -82,8 +81,7 @@ export default function Doctor() {
               {suggestion}
             </div>
           ))}
-        </div>
-        <br />
+        </div><br />
         <button onClick={handleSubmit}>Submit</button>
         {error && <p style={{ color: 'red' }}>{error}</p>}
       </center>
