@@ -7,6 +7,7 @@ export default function Pharmacy() { //what pharmacy sees on the site
     const [success, setSuccess] = useState('');
     const [sucFind, setSucFind] = useState('');
     const [receiptData, setReceiptData] = useState('');
+    const [medication, setMedication] = useState('')
     const checkReceipt = async() => {
       try {
         const response = await axios.get('http://127.0.0.1:8000/api/receipt/' + cur)
@@ -35,6 +36,7 @@ export default function Pharmacy() { //what pharmacy sees on the site
       setSucFind('');
       setError('');
       setReceiptData('')
+      setMedication('')
         try {
           const response = await axios.get(url);
           // Handle successful submit              console.log('Prescription ID successful:', response.data);
@@ -46,8 +48,25 @@ export default function Pharmacy() { //what pharmacy sees on the site
         }
     }
 
+    const findMedication = async () => {
+      try {
+        const response = await axios.get("http://127.0.0.1:8000/api/receipt/" + cur + '/medications/');
+        const data = response.data;
+        let s = ''
+        for(let i = 0; i < data.length; i++) {
+          const item = data[i];
+          s += item["MEDNAME"] + " ";
+        }
+        setMedication(s);
+      }
+      catch(error) {
+        console.error("Error loading")
+      }
+    }
+
     const handleSubmit =  (event) => { //function to find if the receipt exists, check if it used or not, and update it to used
         checkReceipt();
+        findMedication();
     };
 
   return (
@@ -55,6 +74,7 @@ export default function Pharmacy() { //what pharmacy sees on the site
       <b><center>Input receipt ID: <input type='text' onChange={(e) => setCur(e.target.value)} /><br/>
       {sucFind && <p style={{color:'green'}}>{sucFind}</p>}
       {receiptData && <p>Doctor id:{receiptData["Doctor"]}<br/>Patient id: {receiptData["Patient"]}</p>}
+      {medication && <p>{medication}</p>}
       {!sucFind && <button onClick={handleSubmit}>Submit</button>}
       {error && <p style={{ color: 'red' }}>{error}</p>}
       {success && <p style={{ color: 'green'}} >{success}</p>}
