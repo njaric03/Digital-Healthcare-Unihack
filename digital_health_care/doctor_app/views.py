@@ -1,8 +1,9 @@
 from django.apps import apps
+from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from django.http import Http404
+from django.http import Http404, JsonResponse
 from django.http import HttpResponseBadRequest
 from django.forms.models import model_to_dict
 from django.db.models import ForeignKey
@@ -229,3 +230,15 @@ class RegisterView(APIView):
         
         except Exception as e:
             return Response({'error': str(e)}, status=500)
+
+    
+
+def update_used(request, receipt_id):
+    # Retrieve the object to be updated
+    receipt = get_object_or_404(Receipt, id=receipt_id)
+    # Update the PERIOD field with the new value
+    receipt.USED = 'Y'
+    receipt.save()
+
+    # Return a JSON response indicating success
+    return JsonResponse({'status': 'success'})
