@@ -26,9 +26,30 @@ SECRET_KEY = 'django-insecure-c@z_goahetmoo7wvdc2yefov()cgjgs6!9pc+ud7p9$y@@(fg-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["10.0.2.2", "127.0.0.1"]
+CORS_ORIGIN_ALLOW_ALL = True
 
+CORS_ALLOW_CREDENTIALS = True
+ALLOWED_HOSTS=['*']
 
+CORS_ALLOW_METHODS = [
+    "DELETE",
+    "GET",
+    "OPTIONS",
+    "PATCH",
+    "POST",
+    "PUT",
+]
+CORS_ALLOW_HEADERS = [
+    "accept",
+    "accept-encoding",
+    "authorization",
+    "content-type",
+    "dnt",
+    "origin",
+    "user-agent",
+    "x-csrftoken",
+    "x-requested-with",
+]
 # Application definition
 
 INSTALLED_APPS = [
@@ -42,16 +63,16 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     'crispy_forms',
-    'rest_framework' # new, for api
+    'rest_framework', # new, for api
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
