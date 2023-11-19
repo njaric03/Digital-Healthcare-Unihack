@@ -5,7 +5,7 @@ import Doctor from './components/Doctor';
 import Login from './components/Login';
 import Pharmacy from './components/Pharmacy';
 import "./css/App.css";
-
+// component to call everything
 const App = () => {
   return (
       <Routes>

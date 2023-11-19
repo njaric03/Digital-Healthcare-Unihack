@@ -6,11 +6,15 @@ import axios from 'axios';
 
 export default function Doctor() {
   const [filteredSug, setFilteredSug] = useState([]);
+  const [receiptID, setReceiptID] = useState(null);
   const location = useLocation();
   const [text, setText] = useState('');
   const [time, setTime] = useState(0);
   const [error, setError] = useState('');
   const [good, setGood] = useState(false);
+  const [submit, setSubmit] = useState(false);
+  const [patientID, setPatientID] = useState('');
+  const curDate = new Date();
 
   const handleInputChange = async (event) => {
     const cur = event.target.value;
@@ -53,23 +57,40 @@ export default function Doctor() {
     else {
       const receiptID = uuidv4();
       const doctorID = 1;
-      const url = 'http://127.0.0.1:8000/api/receipt/post/';
-      const response = await axios.post(url, );
-      //sendReceipt();
-      setError('');
-      setText('');
-      setTime('');
+      const url = 'http://127.0.0.1:8000/api/receiptmedication/post/';
+      const sendData = {Receipt:'1',DocMedPermission:'1', PERIOD:intValue};
+      try {
+        const response = await axios.post(url, sendData);
+        setError('');
+        setText('');
+        setTime('');
+      }
+      catch (error) {
+        console.error("WRONG!");  
+      }
+    }
+    if(!submit) {
+      setSubmit(true);
+      const url2 = 'http://127.0.0.1:8000/api/receipt/post/';
+      const jsonData = {id:receiptID, USED:'N', EXPIRYDATE:"2023-11-29", Doctor:1,Patient:patientID} //expirydate needs change!!!
+      try {
+        const response = await axios.post(url2, jsonData);
+        console.log(response)
+      }
+      catch(error) {
+        console.error("Didn't go through")
+      }
     }
   };
 
   const docName = location.state ? location.state.docName : 'Bodes se';
-
   return (
     <div className="autocomplete">
       <center>
         <h1>Hello, {docName}</h1>
         <br />
-        <h2>New receipt:</h2>
+        Patiend ID: <input type='text' onChange= {(e) => setPatientID(e.target.value)}/><br/><br/>
+        <button onClick={(e) => setReceiptID(Math.floor(Math.random() * (71) + 30))}><b>New receipt:</b></button>{receiptID && <p style={{color:'black'}}>Current receipt ID: {receiptID}</p>}
         <br />
         Time between consuming in hours: <input type="text" value={time} onChange={(e) => setTime(e.target.value)} />{' '}
         <br />
