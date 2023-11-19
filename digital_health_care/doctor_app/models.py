@@ -58,7 +58,7 @@ class Receipt(models.Model):
 class ReceiptMedication(models.Model):
     Receipt = models.ForeignKey(Receipt, on_delete=models.CASCADE)
     DocMedPermission = models.ForeignKey(DocMedPermission, on_delete=models.CASCADE)
-
+    PERIOD = models.IntegerField(verbose_name = "Period of medication taking", default = 12)
     def __str__(self):
         return f"Receipt Medication: {self.Receipt} - {self.DocMedPermission}"
 
