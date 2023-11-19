@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import generate_model_views
+from .views import generate_model_views, update_used
 from .views import PatientMedicationsView, ReceiptMedicationByReceiptView, MedicationSuggestion
 
 
@@ -18,5 +18,7 @@ for view_class in model_views:
 urlpatterns += [
         path('api/patient/<int:patient_id>/medications/', PatientMedicationsView.as_view(), name='patient_medications'),
         path('api/receipt/<int:receipt_id>/medications/', ReceiptMedicationByReceiptView.as_view(), name='receipt_medications'),
-        path('api/medicationsuggestion/<str:medicationstart>/', MedicationSuggestion.as_view(), name='medication-suggestion')
+        path('api/medicationsuggestion/<str:medicationstart>/', MedicationSuggestion.as_view(), name='medication-suggestion'),
+        path('api/receipt/update_used/<int:receipt_id>/', update_used, name='update_used')
+
 ]
