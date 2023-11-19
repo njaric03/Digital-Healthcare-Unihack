@@ -1,6 +1,10 @@
 from django.urls import path
 from .views import generate_model_views
-from .views import PatientMedicationsView, ReceiptMedicationByReceiptView, MedicationSuggestion
+from .views import *
+from django.contrib.auth import authenticate
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
+
 
 
 app_name = 'doctor_app'
@@ -18,5 +22,9 @@ for view_class in model_views:
 urlpatterns += [
         path('api/patient/<int:patient_id>/medications/', PatientMedicationsView.as_view(), name='patient_medications'),
         path('api/receipt/<int:receipt_id>/medications/', ReceiptMedicationByReceiptView.as_view(), name='receipt_medications'),
-        path('api/medicationsuggestion/<str:medicationstart>/', MedicationSuggestion.as_view(), name='medication-suggestion')
+        path('api/medicationsuggestion/<str:medicationstart>/', MedicationSuggestion.as_view(), name='medication-suggestion'),
+        path('api/csrf-token/', CsrfToken.as_view(), name='csrf-token'),
+        path('api/login/', LoginView.as_view(), name='login'),
+        path('api/register/', RegisterView.as_view(), name='register'),
+        path('api/token/renew', TokenRenewalView.as_view(), name='token-renew'),
 ]
