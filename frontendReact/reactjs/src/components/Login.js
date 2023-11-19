@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const Login = () => {
+export default function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
@@ -10,14 +10,13 @@ const Login = () => {
 
   const handleLogin = async (event) => {
     event.preventDefault();
-    const docName = "Vanja"
+    const docName = "Vanja";
     try {
       const response = await axios.post('http://your-django-backend-url/api/login/', {
         username,
         password,
       });
       // Handle successful login
-      
       console.log('Login successful:', response.data);
         navigate('/Doctor/', {state: {docName}});
     } catch (error) {
@@ -45,6 +44,4 @@ const Login = () => {
         <button type="submit" onClick={handleLogin}>Login</button>
     </div>
   );
-};
-
-export default Login;
+}

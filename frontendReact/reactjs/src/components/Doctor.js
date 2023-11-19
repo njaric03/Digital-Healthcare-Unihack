@@ -5,7 +5,6 @@ import '../css/Doctor.css';
 import axios from 'axios';
 
 export default function Doctor() {
-  const suggestions = ["Andol", "Brufen", "Febricet", "C vitamin", "D vitamin", "I don't know"]
   const [filteredSug, setFilteredSug] = useState([]);
   const location = useLocation();
   const [text, setText] = useState('');
@@ -14,25 +13,25 @@ export default function Doctor() {
   const [good, setGood] = useState(false);
 
   const handleInputChange = async (event) => {
-    const cur = event.target.value
-    setText(cur)
-    setGood(false)
+    const cur = event.target.value;
+    setText(cur);
+    setGood(false);
     if(cur) {
-      const url = 'http://127.0.0.1:8000/api/medicationsuggestion/' + cur
+      const url = 'http://127.0.0.1:8000/api/medicationsuggestion/' + cur;
       //console.log(url)
       try {
-        const response = await axios.get(url)
+        const response = await axios.get(url);
         //console.log(response)
-        setFilteredSug(response.data)
+        setFilteredSug(response.data);
         //console.log(filteredSug)
       }
       catch(error) {
-        console.error("Didn't go!")
-        setError("Not good!")
+        console.error("Didn't go!");
+        setError("Not good!");
       }
     }
     else {
-      setFilteredSug([])
+      setFilteredSug([]);
     }
   };
 
@@ -42,21 +41,15 @@ export default function Doctor() {
     setGood(true);
   };
 
-  const handleTimeChange = (event) => {
-    setTime(event.target.value);
-  };
-
-  const sendReceipt = () => {
-    // Implement your logic to send the receipt to Django backend
-  };
-
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const intValue = parseInt(time)
+    const intValue = parseInt(time);
     console.log(intValue);
     console.log(good);
     console.log(text);
-    if (isNaN(intValue) || text === '' || intValue <= 0 || !good) setError('Please fill in everything correctly!');
+    if (isNaN(intValue) || text === '' || intValue <= 0 || !good) {
+      setError('Please fill in everything correctly!');
+    }
     else {
       const receiptID = uuidv4();
       const doctorID = 1;
@@ -78,7 +71,7 @@ export default function Doctor() {
         <br />
         <h2>New receipt:</h2>
         <br />
-        Time between consuming in hours: <input type="text" value={time === 0 ? '' : time} onChange={handleTimeChange} />{' '}
+        Time between consuming in hours: <input type="text" value={time} onChange={(e) => setTime(e.target.value)} />{' '}
         <br />
         <br />
         Medication name: <input type="text" value={text} onChange={handleInputChange} />
