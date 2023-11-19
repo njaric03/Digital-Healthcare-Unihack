@@ -21,9 +21,10 @@ export default function Doctor() {
       //console.log(url)
       try {
         const response = await axios.get(url);
-        //console.log(response)
+        console.log(response)
+        console.log(response.data)
         setFilteredSug(response.data);
-        //console.log(filteredSug)
+        console.log(filteredSug)
       }
       catch(error) {
         console.error("Didn't go!");
@@ -55,7 +56,7 @@ export default function Doctor() {
       const doctorID = 1;
       const url = 'http://127.0.0.1:8000/api/receipt/post/';
       const response = await axios.post(url, );
-      sendReceipt();
+      //sendReceipt();
       setError('');
       setText('');
       setTime('');
